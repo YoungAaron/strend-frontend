@@ -1,5 +1,5 @@
 <template>
     <div>
-        footer
+        forum
     </div>
 </template>
