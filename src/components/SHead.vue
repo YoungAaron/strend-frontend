@@ -1,16 +1,16 @@
 <template>
     <el-row type="flex" class="row-bg">
         <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/stock">11111111</router-link></div>
+            <div class="grid-content bg-purple"><router-link to="/stock">股票</router-link></div>
         </el-col>
         <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/cbond">22222222</router-link></div>
+            <div class="grid-content bg-purple"><router-link to="/cbond">债券</router-link></div>
         </el-col>
         <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/trader">33333333</router-link></div>
+            <div class="grid-content bg-purple"><router-link to="/trader">交易者</router-link></div>
         </el-col>
         <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/forum">44444444</router-link></div>
+            <div class="grid-content bg-purple"><router-link to="/forum">讨论区</router-link></div>
         </el-col>
     </el-row>
 </template>

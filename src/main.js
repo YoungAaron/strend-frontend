@@ -5,9 +5,14 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-theme-chalk'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import echarts from 'echarts'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+Vue.use(VueAxios, axios)
+Vue.prototype.$echarts = echarts
 
 /* eslint-disable no-new */
 new Vue({
