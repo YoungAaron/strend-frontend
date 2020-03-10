@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div id='echart' style="width:600px;height:400px;"></div>
-        <p v-if="eOption">{{eOption}}</p>
-        <p v-if="indexData">{{indexData}}</p>
+        <div id='echart' style="width:1000px;height:700px;"></div>
+        <p v-if="false">{{eOption}}</p>
+        <p v-if="false">{{indexData}}</p>
     </div>
 </template>
 
@@ -16,16 +16,25 @@ export default {
                     {"ts_code": "399006.SZ", "name": "创业板指"},
                     {"ts_code": "000001.SH", "name": "上证综指"},
                     {"ts_code": "399001.SZ", "name": "深证成指"}],
-                dateStart: '20200102'
+                dateStart: '20180101'
             },
+            // 行业指数列表
+            indexList: '',
             // eChart数据源
             eOption: {
-                title: {text: '行情对比'},
+                title: {text: '阶段指数行情对比'},
+                legend: {
+                    show: true,
+                },
                 tooltip: {},
                 xAxis: {
                     data: []
                 },
-                yAxis: {},
+                yAxis: {
+                    min: 0,
+                    max: 2.0,
+                    interval: 0.05
+                },
                 series: []
             },
         }
@@ -39,9 +48,10 @@ export default {
     },
     computed: {
         indexApi: function(){
-            // 拼接网易财经API 
-            // return this.indexCode.map(idx => '/126/data/hs/klinederc/day/times/1'+idx['ts_code'].substr(0,6).toLowerCase()+'.json')
-            return this.indexData.indexCode.map(idx => '/126/data/hs/kline/day/times/1399001.json')
+            // 拼接API
+            let start = this.indexData.dateStart
+            return this.indexData.indexCode.map(idx => '/api/kdata/index/'+idx.ts_code+'/'+start)
+            //return this.indexData.indexCode.map(idx => '/126/data/hs/kline/day/times/1399001.json')
         },
     },
     watch: {
@@ -62,11 +72,12 @@ export default {
                 this.axios
                     .get(this.indexApi[a])
                     .then(response => {
-                        let idx = response.data.times.indexOf(this.indexData.dateStart);
-                        let times = response.data.times.slice(idx,);
-                        let closes = response.data.closes.slice(idx,);
-                        this.eOption.series.push({name:'', type:'line', data:closes});
-                        this.eOption.xAxis.data = times;
+                        let name = this.indexData.indexCode[a].name;
+                        let kdata = response.data.close;
+                        let base = kdata[0];
+                        kdata = kdata.map(k => k/base)
+                        this.eOption.series.push({'name': name, 'type':'line', 'data': kdata});
+                        this.eOption.xAxis.data = response.data.date;
                     })
                     .catch(error => console.log(error))
             }
