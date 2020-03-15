@@ -1,16 +1,16 @@
 <template>
     <el-row type="flex" class="row-bg">
-        <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/stock">股票</router-link></div>
+        <el-col :span="1">
+            <div class="grid-content bg-purple"><router-link to="/stock">趋势</router-link></div>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="1">
+            <div class="grid-content bg-purple"><router-link to="/trader">消息</router-link></div>
+        </el-col>
+        <el-col :span="1">
             <div class="grid-content bg-purple"><router-link to="/cbond">债券</router-link></div>
         </el-col>
-        <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/trader">交易者</router-link></div>
-        </el-col>
-        <el-col :span="2">
-            <div class="grid-content bg-purple"><router-link to="/forum">讨论区</router-link></div>
+        <el-col :span="1">
+            <div class="grid-content bg-purple"><router-link to="/forum">讨论</router-link></div>
         </el-col>
     </el-row>
 </template>
@@ -42,12 +42,13 @@ export default {
   }
   .el-col {
     border-radius: 4px;
+    background: rgb(116, 156, 209);
   }
   .bg-purple-dark {
     background: #99a9bf;
   }
   .bg-purple {
-    background: rgb(81, 120, 170);
+    background: rgb(116, 156, 209);
   }
   .bg-purple-light {
     background: #e5e9f2;
@@ -58,7 +59,7 @@ export default {
   }
   .row-bg {
     padding: 0px 0;
-    background-color: rgb(81, 120, 170);
+    background-color: rgb(116, 156, 209);
   }
   a {
     text-decoration: none;

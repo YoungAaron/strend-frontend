@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header>
+      <el-header style="height:40px">
         <s-head></s-head>
       </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>
+      <el-footer style="height:40px">
         <s-foot></s-foot>
       </el-footer>
     </el-container>
@@ -28,37 +28,42 @@ export default {
 </script>
 
 <style>
-  .el-header, .el-footer {
-    background-color: rgb(81, 120, 170);
-    color: rgb(209, 201, 201);
+  .el-header {
+    background-color: rgb(116, 156, 209);
+    color: rgb(116, 156, 209);
     text-align: center;
-    line-height: 60px;
+    line-height: 40px;
+  }
+  
+  .el-footer {
+    background-color: rgb(116, 156, 209);
+    color: rgb(17, 1, 1);
+    text-align: center;
+    line-height: 40px;
   }
   
   .el-aside {
-    background-color: #D3DCE6;
+    background-color: rgb(255, 255, 255);
     color: #333;
     text-align: center;
     line-height: 200px;
   }
   
   .el-main {
-    background-color: #E9EEF3;
-    color: rgb(22, 2, 2);
-    text-align: center;
-    line-height: 160px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: left;
+    line-height: 60px;
   }
   
   body > .el-container {
     margin-bottom: 40px;
   }
-  
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-  
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
+
+  html, body, #app, .el-container {
+    /* 充满全屏 */
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
   }
 </style>

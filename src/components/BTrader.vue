@@ -1,16 +1,34 @@
 <template>
-  <div class="infinite-list-wrapper" style="overflow:auto">
-    <ul
-      class="list"
-      v-infinite-scroll="load"
-      infinite-scroll-disabled="auto_load">
-      <li v-for="r in repurchase" class="list-item">
-        报告日期：{{r.ann_date}} | 公司名称：{{r.ts_code}} | 回购数量：{{r.vol}} | 回购总额：{{r.amount}}
-      </li>
-    </ul>
-    <p v-if="loading">加载中...</p>
-    <p v-if="noMore">没有更多了</p>
-  </div>
+    <el-row>
+        <el-col :span="3">
+            <h3>消息类型</h3>
+            <el-menu
+              default-active="1"
+              class="el-menu-vertical-demo"
+              mode="vertical" 
+              @select="handleSelect"
+              active-text-color="#409EFF">
+              <el-menu-item index="1">
+                <span slot="title">增持减持</span>
+              </el-menu-item>
+              <el-menu-item index="2">
+                <span slot="title">公司回购</span>
+              </el-menu-item>
+              <el-menu-item index="3">
+                <span slot="title">员工持股</span>
+              </el-menu-item>
+              <el-menu-item index="4">
+                <span slot="title">业绩增减</span>
+              </el-menu-item>
+              <el-menu-item index="5">
+                <span slot="title">自定义</span>
+              </el-menu-item>
+            </el-menu>
+        </el-col>
+        <el-col :span="20">
+            <div id='echart'></div>
+        </el-col>
+    </el-row>
 </template>
 
 <script>
@@ -55,14 +73,24 @@ export default {
 </script>
 
 
-<style>
-  .text {
-    font-size: 14px;
+<style scoped>
+  .el-row {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: left;
+    line-height: 40px;
+    padding: 0px;
+    margin-bottom: 0px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
-  .item {
-    padding: 18px 0;
+  .el-col {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
   }
-  .box-card {
-    width: 100%;
+  h3 {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
   }
 </style>
