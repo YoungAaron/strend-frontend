@@ -6,27 +6,26 @@
               default-active="1"
               class="el-menu-vertical-demo"
               mode="vertical" 
-              @select="handleSelect"
               active-text-color="#409EFF">
               <el-menu-item index="1">
-                <span slot="title">增持减持</span>
+                <router-link :to="{name: 'overweight'}">增持减持</router-link>
               </el-menu-item>
               <el-menu-item index="2">
-                <span slot="title">公司回购</span>
+                <router-link :to="{name: 'buyback'}">公司回购</router-link>
               </el-menu-item>
               <el-menu-item index="3">
-                <span slot="title">员工持股</span>
+                <router-link :to="{name: 'employee'}">员工持股</router-link>
               </el-menu-item>
               <el-menu-item index="4">
-                <span slot="title">业绩增减</span>
+                <router-link :to="{name: 'finance'}">业绩变动</router-link>
               </el-menu-item>
               <el-menu-item index="5">
-                <span slot="title">自定义</span>
+                <router-link :to="{name: 'fund'}">基金分析</router-link>
               </el-menu-item>
             </el-menu>
         </el-col>
-        <el-col :span="20">
-            <div id='echart'></div>
+        <el-col :span="21">
+            <router-view></router-view>
         </el-col>
     </el-row>
 </template>
@@ -92,5 +91,8 @@ export default {
   h3 {
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
+  }
+  a{
+    color: black;
   }
 </style>
