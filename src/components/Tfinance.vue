@@ -157,9 +157,9 @@ export default {
                     name: '阶段涨跌百分比（%）',
                     nameLocation: 'center',
                     nameGap: 60,
-                    min: function (value) {return (value.min - 0.1).toFixed(1)},
-                    max: function (value) {return (value.max + 0.1).toFixed(1)},
-                    interval: 0.05
+                    min: function (value) {return (value.min - 1).toFixed(0)},
+                    max: function (value) {return (value.max + 1).toFixed(0)},
+                    interval: 1
                 },
                 series: []
             },
@@ -167,17 +167,16 @@ export default {
     },
     watch: {
         companys: {
-            handler: function() {this.getKdata()},
+            handler: function() {this.getIncome()},
             deep: true
         },
         eOption: {
-            handler: function() { this.drawEchart()},
+            handler: function() {this.drawEchart()},
             deep: true
         }
     },
     methods: {
         handleSelect(key) {
-            console.log(key);
             this.axios
                 .get('/api/stock/?limit=1000&industry='+key)
                 .then((response) => {
@@ -186,20 +185,23 @@ export default {
                 })
                 .catch((error) => {console.log(error);});
         },
-        getKdata: function() {
-            // 处理网易财经数据
-            console.log(this.indexApi);
+        getIncome: function() {
+            // 获得财务数据
             this.eOption.series=[];
-            for (let a in this.indexApi) {
+            for (let a in this.companys) {
                 this.axios
-                    .get(this.indexApi[a])
+                    .get('/api/income/?limit=40&ts_code='+this.companys[a].ts_code)
                     .then(response => {
-                        let name = this.indexData.indexCode[a].name;
-                        let kdata = response.data.close;
-                        let base = kdata[0];
-                        kdata = kdata.map(k => k/base)
-                        this.eOption.series.push({'name': name, 'type':'line', 'data': kdata});
-                        this.eOption.xAxis.data = response.data.date;
+                        //console.log(response);
+                        let income = response.data.results;
+                        let tscode = response.data.results[0].ts_code;
+                        let dates = income.map(k => k.end_date);
+                        income = income.sort(function(a, b){return b.end_date - a.end_date});
+                        income = income.map(k => k.total_revenue);
+                        let base = income[0];
+                        income = income.map(k => k/base);
+                        this.eOption.series.push({'name': tscode, 'type':'line', 'data': income});
+                        this.eOption.xAxis.data = dates;
                     })
                     .catch(error => console.log(error))
             }
