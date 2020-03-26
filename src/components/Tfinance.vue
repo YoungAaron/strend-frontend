@@ -157,8 +157,8 @@ export default {
                     name: '阶段涨跌百分比（%）',
                     nameLocation: 'center',
                     nameGap: 60,
-                    min: function (value) {return (value.min - 1).toFixed(0)},
-                    max: function (value) {return (value.max + 1).toFixed(0)},
+                    min: -2,
+                    max: 5,
                     interval: 1
                 },
                 series: []
@@ -171,7 +171,12 @@ export default {
             deep: true
         },
         eOption: {
-            handler: function() {this.drawEchart()},
+            handler: function() {
+                // console.log(this.companys.length, this.eOption.series.length);
+                if (this.companys.length == this.eOption.series.length) {
+                    this.drawEchart()
+                }
+            },
             deep: true
         }
     },
@@ -190,13 +195,13 @@ export default {
             this.eOption.series=[];
             for (let a in this.companys) {
                 this.axios
-                    .get('/api/income/?limit=40&ts_code='+this.companys[a].ts_code)
+                    .get('/api/income/?limit=20&ts_code='+this.companys[a].ts_code)
                     .then(response => {
                         //console.log(response);
                         let income = response.data.results;
                         let tscode = response.data.results[0].ts_code;
+                        income = income.sort(function(a, b){return a.end_date-b.end_date});
                         let dates = income.map(k => k.end_date);
-                        income = income.sort(function(a, b){return b.end_date - a.end_date});
                         income = income.map(k => k.total_revenue);
                         let base = income[0];
                         income = income.map(k => k/base);
