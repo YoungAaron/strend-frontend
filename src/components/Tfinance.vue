@@ -3,7 +3,11 @@
         <el-col :span="3">
             <h3>选择行业</h3>
             <ul>
-              <li v-for='ids in industrys' :key='ids.id' @click="handleSelect(ids)">
+              <li 
+                style="list-style-type:none;"
+                v-for='ids in industrys' 
+                :key='ids.id' 
+                @click="handleSelect(ids)">
                 {{ ids }}
               </li>
             </ul>
@@ -158,7 +162,7 @@ export default {
                     nameLocation: 'center',
                     nameGap: 60,
                     min: -2,
-                    max: 5,
+                    max: 10,
                     interval: 1
                 },
                 series: []
@@ -213,9 +217,9 @@ export default {
         },
         drawEchart () {
             // 图像展示
-            var echarts = require('echarts');
-            var myChart = echarts.init(document.getElementById('echart'));
-            myChart.setOption(this.eOption);
+            let echarts = require('echarts');
+            let myChart = echarts.init(document.getElementById('echart'));
+            myChart.setOption(this.eOption, true);
         },
     }
 }

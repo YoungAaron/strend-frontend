@@ -119,7 +119,8 @@ export default {
             deep: true
         },
         eOption: {
-            handler: function() { this.drawEchart()},
+            handler: function() { 
+                if (this.indexApi.length == this.eOption.series.length) {this.drawEchart()}},
             deep: true
         }
     },
@@ -164,7 +165,7 @@ export default {
             // 图像展示
             var echarts = require('echarts');
             var myChart = echarts.init(document.getElementById('echart'));
-            myChart.setOption(this.eOption);
+            myChart.setOption(this.eOption, true);
         },
     }
 }
